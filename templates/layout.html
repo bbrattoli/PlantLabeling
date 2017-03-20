@@ -3,17 +3,46 @@ $def with (content)
 <html>
 <head>
     <!-- <link rel="stylesheet" type="text/css" href="mystyle.css"> -->
-    <title>Plant labeling app</title>
-    <style>
+    <title>Plant labeling app - CompVis</title>
+    <style type="text/css">
         body {
             background-image: url("/images/blue-spiral-fractal.jpg");
-            background-color:blue;
+            background-color:darkblue;
             width: 30%;
             margin-left: auto;
             margin-right: auto;
+            vertical-align: middle;
             text-align: center;
             color:white;
          }
+         ul {list-style-type:none;}
+         li {
+           margin: 15;
+           padding: 0;
+         }
+         #wrap {
+             width:400px;
+             margin:0 auto;
+          }
+          #left_col {
+             float:left;
+             width:300px;
+             /*height:300px;*/
+          }
+          #right_col {
+             float:right;
+             width:100px;
+             height:300px;
+             margin-top: 60px;
+             margin-right: 0px;
+          }
+          input[type=submit] {
+              font-size: 20px;
+              padding:5px;
+              border:0px solid #ccc;
+              -webkit-border-radius: 10px;
+              border-radius: 10px;
+          }
     </style>
 </head>
 

@@ -1,15 +1,24 @@
 $def with (plant_code)
 
-<h1>Plants Labeling</h1>
 
+<div id="wrap">
+<h1>Plants Labeling CompVis</h1>
+  <div id="left_col">
+    <h2>IS_1441899819322.jpg</h2>
+    <img src="/images/IS_1441899819322.jpg" alt="Plant" style="width:304px;height:228px;">
+  </div>
 
-<h2>IS_1441899819322.jpg</h2>
-<img src="/images/IS_1441899819322.jpg" alt="Plant" style="width:304px;height:228px;">
-<br/> <br/>
-<form action="/print" method="POST">
-    <input type="submit" name="selection" value="$plant_code[0]">
-    <input type="submit" name="selection" value="$plant_code[1]">
-    <input type="submit" name="selection" value="$plant_code[2]">
-    <input type="submit" name="selection" value="$plant_code[3]">
-    <input type="submit" name="selection" value="$plant_code[4]">
-</form>
+  <div id="right_col">
+    <form action="/print" method="POST">
+        <div class="choice">
+          <ul>
+            <li><input type="submit" name="selection" value="$plant_code[0]"></li>
+            <li><input type="submit" name="selection" value="$plant_code[1]"></li>
+            <li><input type="submit" name="selection" value="$plant_code[2]"></li>
+            <li><input type="submit" name="selection" value="$plant_code[3]"></li>
+            <li><input type="submit" name="selection" value="$plant_code[4]"></li>
+          </ul>
+        </div>
+    </form>
+  </div>
+</div>
