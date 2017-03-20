@@ -1,5 +1,6 @@
 import web
 import os
+from Plant import Plant
 
 urls = (
   '/', 'Index',
@@ -13,6 +14,9 @@ app = web.application(urls, globals())
 render = web.template.render('templates/', base="layout")
 
 plant_code = ["CODE1","CODE2","CODE3","CODE4","CODE5"]
+
+plants = Plant()
+
 
 class Index(object):
     def GET(self):
@@ -29,11 +33,15 @@ class Labeling(object):
         return render.labeling()
 
     def POST(self):
-        form = web.input(pwd="no_pwd")
-        if form.pwd == "biagio":
-            return render.labeling(plant_code=plant_code)
-        else:
-            return render.login()
+        form = web.input(pwd="no_pwd",selection=None,image=None)
+        if not form.selection is None:
+            print form.image+'  '+form.selection
+            plants.save_selection(form.image,form.selection)
+        #if form.pwd == "biagio":
+        p = plants.next_plant()
+        return render.labeling(plant_code=p[1],image=p[0])
+        #else:
+        #    return render.login()
 
 class Print(object):
     def GET(self):

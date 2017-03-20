@@ -1,15 +1,16 @@
-$def with (plant_code)
+$def with (image,plant_code)
 
 
 <div id="wrap">
 <h1>Plants Labeling CompVis</h1>
   <div id="left_col">
     <h2>IS_1441899819322.jpg</h2>
-    <img src="/images/IS_1441899819322.jpg" alt="Plant" style="width:304px;height:228px;">
+    <img src="/images/$image" alt="Plant" style="width:304px;height:228px;" name='image'>
   </div>
 
   <div id="right_col">
-    <form action="/print" method="POST">
+    <form action="/app" method="POST">
+        <input type="hidden" name="image" value="$image">
         <div class="choice">
           <ul>
             <li><input type="submit" name="selection" value="$plant_code[0]"></li>
