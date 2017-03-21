@@ -10,6 +10,8 @@ urls = (
 )
 
 app = web.application(urls, globals())
+session = web.session.Session(app, web.session.DiskStore('sessions'),
+                              initializer={'user': None})
 
 render = web.template.render('templates/', base="layout")
 
@@ -30,26 +32,32 @@ class Index(object):
 
 class Labeling(object):
     def GET(self):
-        return render.labeling()
+        p = plants.next_plant()
+        return render.labeling(user=None,plant_code=p[1],image=p[0])
 
     def POST(self):
-        form = web.input(pwd="no_pwd",selection=None,image=None)
+        user = None
+        form = web.input(user=None,selection=None,image=None)
+        if not form.user is None:
+            user = form.user
+        #    session.user = form.user
         if not form.selection is None:
             print form.image+'  '+form.selection
             plants.save_selection(form.image,form.selection)
         #if form.pwd == "biagio":
         p = plants.next_plant()
-        return render.labeling(plant_code=p[1],image=p[0])
+        return render.labeling(user=user,plant_code=p[1],image=p[0])
         #else:
         #    return render.login()
 
 class Print(object):
     def GET(self):
+        session.count += 1
         return render.printing()
 
     def POST(self):
-        form = web.input(selection="NONE")
-        return render.printing(to_print=form.selection)
+        form = web.input(selection=None,user=None)
+        return render.printing(to_print=session.user)
 
 class images:
     def GET(self,name):

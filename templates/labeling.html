@@ -1,8 +1,13 @@
-$def with (image,plant_code)
+$def with (user,image,plant_code)
+
 
 
 <div id="wrap">
-<h1>Plants Labeling CompVis</h1>
+  $if user:
+    <h1>$user</h1>
+  $else:
+    <h1>Plants Labeling CompVis</h1>
+
   <div id="left_col">
     <h2>IS_1441899819322.jpg</h2>
     <img src="/images/$image" alt="Plant" style="width:304px;height:228px;" name='image'>
@@ -11,6 +16,7 @@ $def with (image,plant_code)
   <div id="right_col">
     <form action="/app" method="POST">
         <input type="hidden" name="image" value="$image">
+        <input type="hidden" name="user" value="$user">
         <div class="choice">
           <ul>
             <li><input type="submit" name="selection" value="$plant_code[0]"></li>
