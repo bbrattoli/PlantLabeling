@@ -24,11 +24,8 @@ $code:
         <input type="hidden" name="idx" value="$idx">
         <div class="choice">
           <ul>
-            <li><input type="submit" name="selection" value="$plant_code[0]"></li>
-            <li><input type="submit" name="selection" value="$plant_code[1]"></li>
-            <li><input type="submit" name="selection" value="$plant_code[2]"></li>
-            <li><input type="submit" name="selection" value="$plant_code[3]"></li>
-            <li><input type="submit" name="selection" value="$plant_code[4]"></li>
+            $for code in plant_code:
+              <li><input type="submit" name="selection" value="$code"></li>
           </ul>
         </div>
     </form>

@@ -3,10 +3,11 @@ import os
 
 class Plant:
 
-    def __init__(self,
-                 epicode_path='./utils/epicodes.txt',
+    def __init__(self, num_pred = 5,
+                 epicode_path='./utils/eppocodes.txt',
                  prediction_path='./utils/predictions_website_2.npy',
                  manual_labels_path='./manual_labels/'):
+        self.num_pred = num_pred
         self.epicodes = self.__read_epicodes__(epicode_path)
         self.predictions = np.load(prediction_path)
         self.manual_labels_path = manual_labels_path
@@ -40,7 +41,7 @@ class Plant:
 
         classes = []
         codes = []
-        for i in range(5):
+        for i in range(self.num_pred):
             idx = I[i]
             ec = self.epicodes[idx]
             codes.append(ec)

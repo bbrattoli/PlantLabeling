@@ -18,8 +18,7 @@ render = web.template.render('templates/', base="layout")
 
 plant_code = ["CODE1","CODE2","CODE3","CODE4","CODE5"]
 
-plants = Plant()
-
+plants = Plant(7)
 
 class Index(object):
     def GET(self):
