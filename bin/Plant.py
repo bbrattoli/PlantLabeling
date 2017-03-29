@@ -5,7 +5,7 @@ class Plant:
 
     def __init__(self,
                  epicode_path='./utils/epicodes.txt',
-                 prediction_path='./utils/predictions_website.npy',
+                 prediction_path='./utils/predictions_website_2.npy',
                  manual_labels_path='./manual_labels/'):
         self.epicodes = self.__read_epicodes__(epicode_path)
         self.predictions = np.load(prediction_path)

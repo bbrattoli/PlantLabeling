@@ -1,1 +1,3 @@
 utils/predictions_website.npy
+manual_labels/
+utils/predictions_website_2.npy
