@@ -21,6 +21,7 @@ $code:
     <form action="/app" method="POST">
         <input type="hidden" name="image" value="$image">
         <input type="hidden" name="user" value="$user">
+        <input type="hidden" name="idx" value="$idx">
         <div class="choice">
           <ul>
             <li><input type="submit" name="selection" value="$plant_code[0]"></li>
@@ -38,9 +39,11 @@ $code:
 <div >
   <form action="/app" method="POST" oninput="x.value=parseInt(img_index_dec.value)+parseInt(img_index_unit.value)">
     <input id="dec" type="range" name="img_index_dec" value="$cent(idx)" min="0" max="$num_plants" step="100">
-    <input id="units" type="range" name="img_index_unit" value="$unit(idx)" min="0" max="99" step="1">
+    <input id="units" type="range" name="img_index_unit" value="$unit(idx)" min="1" max="99" step="1">
     <output name="x" for="img_index">$idx</output>
     <input type="hidden" name="user" value="$user">
-    <input type="submit" value="change">
+    <input type="hidden" name="idx" value="$idx">
+    <input type="submit" name="changeimg" value="change">
+    <input type="submit" name="changeimg" value="change random">
   </form>
 </div>

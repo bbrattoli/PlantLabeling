@@ -33,15 +33,16 @@ class Index(object):
 
 class Labeling(object):
     def GET(self):
-        p = plants.next_plant()
+        p = plants.next_plant(0)
         return render.labeling(user=None,plant_code=p[1],
                                image=p[0],num_plants=plants.N,
-                               idx=p[3])
+                               idx=p[3]+1)
 
     def POST(self):
         user = None
         form = web.input(user=None,selection=None,image=None,
-                         img_index_dec=0,img_index_unit=0)
+                         img_index_dec=0,img_index_unit=0,changeimg=None,idx=0)
+
         if not form.user is None:
             user = form.user
         #    session.user = form.user
@@ -49,10 +50,18 @@ class Labeling(object):
             print form.image+'  '+form.selection
             plants.save_selection(form.image,form.selection)
         #if form.pwd == "biagio":
-        p = plants.next_plant(int(form.img_index_dec)+int(form.img_index_unit)-1)
+
+        if form.changeimg is None:
+            p = plants.next_plant(int(form.idx))
+        else:
+            if form.changeimg=='change random':
+                p = plants.next_plant(-1)
+            else:
+                p = plants.next_plant(int(form.img_index_dec)+int(form.img_index_unit)-1)
+
         return render.labeling(user=user,plant_code=p[1],
                                image=p[0],num_plants=plants.N,
-                               idx=p[3])
+                               idx=p[3]+1)
         #else:
         #    return render.login()
 
