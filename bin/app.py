@@ -33,7 +33,7 @@ class Index(object):
 class Labeling(object):
     def GET(self):
         p = plants.next_plant(0)
-        return render.labeling(user=None,plant_code=p[1],
+        return render.labeling(user=None,plant_code=p[1],#plant_pred=p[2],
                                image=p[0],num_plants=plants.N,
                                idx=p[3]+1)
 
@@ -58,7 +58,7 @@ class Labeling(object):
             else:
                 p = plants.next_plant(int(form.img_index_dec)+int(form.img_index_unit)-1)
 
-        return render.labeling(user=user,plant_code=p[1],
+        return render.labeling(user=user,plant_code=p[1],#plant_pred=p[2],
                                image=p[0],num_plants=plants.N,
                                idx=p[3]+1)
         #else:

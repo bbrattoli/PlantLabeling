@@ -44,7 +44,7 @@ class Plant:
         for i in range(self.num_pred):
             idx = I[i]
             ec = self.epicodes[idx]
-            codes.append(ec)
+            codes.append([ec,int(pred[idx]*100)])
             classes.append(idx)
 
         return codes, classes
