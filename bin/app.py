@@ -1,6 +1,7 @@
 import web
 import os
 from Plant import Plant
+import sys
 
 urls = (
   '/', 'Index',
@@ -10,8 +11,8 @@ urls = (
 )
 
 app = web.application(urls, globals())
-session = web.session.Session(app, web.session.DiskStore('sessions'),
-                              initializer={'user': None})
+#session = web.session.Session(app, web.session.DiskStore('sessions'),
+#                              initializer={'user': None})
 
 render = web.template.render('templates/', base="layout")
 
@@ -33,11 +34,14 @@ class Index(object):
 class Labeling(object):
     def GET(self):
         p = plants.next_plant()
-        return render.labeling(user=None,plant_code=p[1],image=p[0])
+        return render.labeling(user=None,plant_code=p[1],
+                               image=p[0],num_plants=plants.N,
+                               idx=p[3])
 
     def POST(self):
         user = None
-        form = web.input(user=None,selection=None,image=None)
+        form = web.input(user=None,selection=None,image=None,
+                         img_index_dec=0,img_index_unit=0)
         if not form.user is None:
             user = form.user
         #    session.user = form.user
@@ -45,8 +49,10 @@ class Labeling(object):
             print form.image+'  '+form.selection
             plants.save_selection(form.image,form.selection)
         #if form.pwd == "biagio":
-        p = plants.next_plant()
-        return render.labeling(user=user,plant_code=p[1],image=p[0])
+        p = plants.next_plant(int(form.img_index_dec)+int(form.img_index_unit)-1)
+        return render.labeling(user=user,plant_code=p[1],
+                               image=p[0],num_plants=plants.N,
+                               idx=p[3])
         #else:
         #    return render.login()
 

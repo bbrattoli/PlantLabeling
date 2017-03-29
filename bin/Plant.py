@@ -10,15 +10,19 @@ class Plant:
         self.epicodes = self.__read_epicodes__(epicode_path)
         self.predictions = np.load(prediction_path)
         self.manual_labels_path = manual_labels_path
+        self.N = len(self.predictions)
 
-    def next_plant(self):
+    def next_plant(self,img_index=-1):
         N = len(self.predictions)
-        i = np.random.randint(N)
+        if img_index==-1:
+            i = np.random.randint(N)
+        else:
+            i = img_index
         plant = self.predictions[i]
         img = plant['image']
 
         codes, classes = self.__top_predictions__(plant['pred'])
-        return img, codes, classes
+        return img, codes, classes, i
 
     def save_selection(self,img,epicode):
         outfile = self.manual_labels_path+img+'.npy'

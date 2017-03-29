@@ -1,6 +1,10 @@
-$def with (user,image,plant_code)
+$def with (user,image,plant_code,num_plants,idx)
+$code:
+  def cent(idx):
+    return int(idx/100)*100
 
-
+  def unit(idx):
+    return idx%100
 
 <div id="wrap">
   $if user:
@@ -28,4 +32,15 @@ $def with (user,image,plant_code)
         </div>
     </form>
   </div>
+</div>
+
+
+<div >
+  <form action="/app" method="POST" oninput="x.value=parseInt(img_index_dec.value)+parseInt(img_index_unit.value)">
+    <input id="dec" type="range" name="img_index_dec" value="$cent(idx)" min="0" max="$num_plants" step="100">
+    <input id="units" type="range" name="img_index_unit" value="$unit(idx)" min="0" max="99" step="1">
+    <output name="x" for="img_index">$idx</output>
+    <input type="hidden" name="user" value="$user">
+    <input type="submit" value="change">
+  </form>
 </div>
