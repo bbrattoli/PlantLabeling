@@ -9,9 +9,22 @@ class Plant:
                  manual_labels_path='./manual_labels/'):
         self.num_pred = num_pred
         self.epicodes = self.__read_epicodes__(epicode_path)
-        self.predictions = np.load(prediction_path)
+        self.predictions = self.__load_predictions(prediction_path)
         self.manual_labels_path = manual_labels_path
         self.N = len(self.predictions)
+        print '----> Total images: %d <------'%N
+
+    def __load_predictions(self,file_name):
+        predictions = np.load(file_name)
+        good_quality = self.__read_quality1_names()
+
+        predictions_clean = []
+        for i in range(predictions.shape[0]):
+            if predictions[i]['image'] in good_quality:
+                predictions_clean.append(predictions[i])
+
+        predictions_clean = np.asarray(predictions_clean)
+        return predictions_clean
 
     def next_plant(self,img_index=-1):
         N = len(self.predictions)
@@ -56,6 +69,14 @@ class Plant:
         for i in range(len(epicodes)):
             epicodes2.append(epicodes[i][0:-1])
         return epicodes2
+
+    def __read_quality1_names():
+        info = open('unlabeled_quality1.txt','r')
+        rows = info.readlines()
+        info.close()
+        rows = [r[:-1] for r in rows]
+        return rows
+
 
 #outfile='/net/hciserver03/storage/bbrattol/webapp_py/plant_labeling/manual_labels/IR_1475750889304.jpg.npy'
 def create_prediction_sample():
