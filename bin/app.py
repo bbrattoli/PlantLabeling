@@ -3,13 +3,13 @@ import os
 from Plant import Plant
 import sys
 
-img_fold = 'images_labeled'
+#img_fold = 'images_labeled'
 
 urls = (
   '/', 'Index',
   '/app', 'Labeling',
   '/print', 'Print',
-  '/images_labeled/(.*)', 'images'
+  '/images/(.*)', 'images'
 )
 
 app = web.application(urls, globals())
@@ -80,14 +80,14 @@ class images:
         ext = name.split(".")[-1] # Gather extension
 
         cType = {
-            "png":"images_labeled/png",
-            "jpg":"images_labeled/jpeg",
-            "gif":"images_labeled/gif",
-            "ico":"images_labeled/x-icon"            }
+            "png":"images/png",
+            "jpg":"images/jpeg",
+            "gif":"images/gif",
+            "ico":"images/x-icon"            }
 
-        if name in os.listdir('images_labeled'):  # Security
+        if name in os.listdir('images'):  # Security
             web.header("Content-Type", cType[ext]) # Set the Header
-            return open('images_labeled/%s'%name,"rb").read() # Notice 'rb' for reading images
+            return open('images/%s'%name,"rb").read() # Notice 'rb' for reading images
         else:
             raise web.notfound()
 

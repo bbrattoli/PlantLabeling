@@ -12,18 +12,34 @@ class Plant:
         self.predictions = self.__load_predictions(prediction_path)
         self.manual_labels_path = manual_labels_path
         self.N = len(self.predictions)
-        print '----> Total images: %d <------'%N
+        print '----> Total images: %d <------'%self.N
 
     def __load_predictions(self,file_name):
         predictions = np.load(file_name)
         good_quality = self.__read_quality1_names()
 
         predictions_clean = []
+        used = []
+        deleted = []
         for i in range(predictions.shape[0]):
             if predictions[i]['image'] in good_quality:
                 predictions_clean.append(predictions[i])
+                used.append(predictions[i]['image'])
+            else:
+                deleted.append(predictions[i]['image'])
 
         predictions_clean = np.asarray(predictions_clean)
+
+        out = open('used.txt','w')
+        for name in used:
+            out.write(name+'\n')
+        out.close()
+
+        out = open('deleted.txt','w')
+        for name in deleted:
+            out.write(name+'\n')
+        out.close()
+
         return predictions_clean
 
     def next_plant(self,img_index=-1):
@@ -70,7 +86,7 @@ class Plant:
             epicodes2.append(epicodes[i][0:-1])
         return epicodes2
 
-    def __read_quality1_names():
+    def __read_quality1_names(self):
         info = open('unlabeled_quality1.txt','r')
         rows = info.readlines()
         info.close()
