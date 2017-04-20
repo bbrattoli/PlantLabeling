@@ -58,7 +58,10 @@ class Labeling(object):
             if form.changeimg=='change random':
                 p = plants.next_plant(-1)
             else:
-                p = plants.next_plant(int(form.img_index_dec)+int(form.img_index_unit)-1)
+                i = int(form.img_index_dec)+int(form.img_index_unit)-1
+                i = min(i,plants.N-1)
+                print i
+                p = plants.next_plant(i)
 
         return render.labeling(user=user,plant_code=p[1],#plant_pred=p[2],
                                image=p[0],num_plants=plants.N,
